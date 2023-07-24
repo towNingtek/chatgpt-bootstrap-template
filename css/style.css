@@ -89,7 +89,7 @@ input[type="range"]::-webkit-slider-thumb {
 .chat-content-area {
   overflow: auto;
   /*height: 500px; 90*/
-  height: 80%;
+  height: 70%;
   overflow-x: hidden;
 }
 
