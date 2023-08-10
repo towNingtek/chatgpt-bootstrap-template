@@ -32,9 +32,6 @@ function get_weather_from_opendata() {
 
 function init() {
   get_weather_from_opendata()
-  // get_api_key()
-  // get_identity()
-  // welcome()
   // add_human_chat()
   // add_ai_chat()
 }
