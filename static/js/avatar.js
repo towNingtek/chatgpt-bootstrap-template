@@ -3,8 +3,8 @@ function welcome() {
     return
   }
 
+  $("#avatar").show()
   let obj_avatar = JSON.parse(getLocalStorage("avatar"))
-  console.log(obj_avatar.partner)
   $('#partner').text(obj_avatar.partner)
   $('#name').text(obj_avatar.name)
   $('#location').text(obj_avatar.location)
@@ -22,12 +22,12 @@ $(document).ready(function() {
 
     // 獲取所選的值
     var selectedValue = $(this).val();
-    
+
     // 經過適當的處理，例如組合成 JSON 格式
     var data = { gptModel: selectedValue };
-    
+
     // 發送 POST 請求
-  
+
     var settings = {
       "url": "https://beta-openai.4impact.cc/get_avatar",
       "method": "POST",
@@ -47,11 +47,12 @@ $(document).ready(function() {
       welcome();
     });
   });
-  
+
   // 監聽按鈕的點擊事件
   $('#submit-btn').click(function() {
     // 觸發 select 元素的變化事件
     $('#gpt-model').trigger('change');
+    alert("talk!")
   });
 });
 

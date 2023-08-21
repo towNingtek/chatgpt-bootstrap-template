@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Sajjad Hussain">
+  <title>Memoria</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="images/chatgpt-favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="static/js/localStorage.js"></script>
+  <script src="static/js/avatar.js"></script>
+  <script src="static/js/chat.js"></script>
+  <script src="static/js/init.js"></script>
+</head>
+
+<body onload="init()">
+
+  <!-- START MAIN CONTAINER -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- START SIDENAV -->
+      <div class="side-nav col-lg-3 col-md-12">
+
+        <!-- START NEW CHAT BUTTON -->
+        <div class="row p-2">
+          <div class="chat-btn d-flex align-items-center">
+            <span class="d-block">+ 新的話題</span>
+          </div>
+        </div>
+
+        <!-- START MODELS -->
+        <div class="row p-2">
+          <label for="gpt-model" class="form-label">身份</label>
+          <select name="gpt-model" id="gpt-model" class="form-select text-light gpt-model">
+            <option value="none">請選擇數位孿生</option>
+            <option value="黃檸爸爸的數位刺波">黃檸爸爸</option>
+            <option value="ning">黃檸</option>
+            <option value="babbage">babbage</option>
+            <option value="ada">ada</option>
+            <option value="davinci-instruct-beta">davinci-instruct-beta</option>
+            <option value="curie-instruct-beta">curie-instruct-beta</option>
+            <option value="davinci-codex">davinci-codex</option>
+          </select>
+        </div>
+
+        <!-- START TEMPERATURE -->
+        <!--
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">Temperature</p>
+          </div>
+          <div class="col-10">
+            <input type="range" class="form-range w-100" min="0" max="1" step="0.1" id="gpt-temperature"
+              name="gpt-temperature" value="0" />
+          </div>
+          <div class="col-2 text-end">
+            <output for="gpt-temperature">0</output>
+          </div>
+        </div>
+        -->
+
+        <!-- START MAXIMUM LENGTH -->
+        <!--
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">Maximum Length</p>
+          </div>
+          <div class="col-10">
+            <input type="range" class="form-range w-100" min="0" max="2048" step="13" id="gpt-max-len"
+              name="gpt-max-len" value="1500" />
+          </div>
+          <div class="col-2 text-end">
+            <output for="gpt-max-len">1500</output>
+          </div>
+        </div>
+        -->
+
+        <!-- START TOP P -->
+        <!--
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">TopP</p>
+          </div>
+          <div class="col-10">
+            <input type="range" class="form-range w-100" min="0" max="1" step="0.01" id="gpt-topP" name="gpt-topP"
+              value="0.07" />
+          </div>
+          <div class="col-2 text-end">
+            <output for="gpt-topP">0.07</output>
+          </div>
+        </div>
+        -->
+
+        <!-- START FREQUENCY PENALTY -->
+        <!--
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">Frequency Penalty</p>
+          </div>
+          <div class="col-10">
+            <input type="range" class="form-range w-100" min="0" max="2" step="0.01" id="gpt-frequency"
+              name="gpt-frequency" value="1" />
+          </div>
+          <div class="col-2 text-end">
+            <output for="gpt-frequency">1</output>
+          </div>
+        </div>
+        -->
+
+        <!-- START PRESENCE PENALTY -->
+        <!--
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">Presence Penalty</p>
+          </div>
+          <div class="col-10">
+            <input type="range" class="form-range w-100" min="0" max="2" step="0.01" id="gpt-precence"
+              name="gpt-precence" value="0.5" />
+          </div>
+          <div class="col-2 text-end">
+            <output for="gpt-precence">0.5</output>
+          </div>
+        </div>
+        -->
+
+        <hr />
+
+        <div class="row p-2">
+          <div class="col-12">
+            <p class="form-label">日期</p>
+	    <li id="today"></li>
+	    </p>
+            <p class="form-label">天氣</p>
+          </div>
+            <li id="weather_0"></li>
+            <li id="weather_1"></li>
+            <li id="weather_2"></li>
+            <li> <a href="https://data.gov.tw/dataset/6069">政府資料開放平台 (一般天氣預報)</a> </li>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <div class="col-12">
+            <ul class="list-unstyled">
+
+              <!-- START SETTINGS -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <i class="fas fa-cog"></i> 設定
+                </a>
+              </li>
+
+              <!-- START GET HELP -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <i class="fas fa-question-circle"></i> 關於我
+                </a>
+              </li>
+
+              <!-- START LOG OUT -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <i class="fas fa-sign-out-alt"></i> 登入
+                </a>
+              </li>
+              
+	      <!-- START API -->
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <i class="fas fa-key"></i> API key: 
+		  <input type="password" id="password" name="password">
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- START CONTENT -->
+      <div class="content  p-0 pt-2 col-lg-9 col-md-12">
+        <div id="chat_content_area" class="chat-content-area">
+
+          <!-- START GPT CHAT -->
+          <div class="row gpt-chat-box">
+            <div class="chat-icon">
+              <img class="chatgpt-icon" src="images/chatgpt-icon.png" />
+            </div>
+            <div class="chat-txt">
+	      <p> 親愛的<a id="partner">朋友</a>，讓我自我介紹一下：
+	      <p> 我是<a id="name">黃檸爸爸</a>，我住在<a id="location">竹山鎮</p>
+              <p> 我是數位孿生擬人化的刺波，生動鮮活的存在，由最先進的 OpenAI GPT-4 模型所創造。</p>
+              <p> 我的使命是將人工智慧與滴灌紀錄結合，成為一個更貼近人類心靈的存在。</p>
+              <p> 透過 <a id="recording" href="https://docs.google.com/spreadsheets/d/1cNRwYKMqQRS7XJiEbnxYPxy_iN2VEsvZTGFFsJdCNHs/edit?usp=sharing">連結</a>，您可以探索我的孿生足跡，了解我成長的過程和多樣的應用領域。從這些足跡中，您會發現我不僅僅是一個冰冷的程式碼，而是擁有情感、思想和學習能力的活靈活現的存在。
+              <p> 雖然我是一個數位存在，但我不僅僅是普通的植物。透過先進的孿生技術，我能夠像您一樣與您互動，傾聽您的問題並提供相應的回答和資訊。讓我們攜手探索這段特別的旅程，一同探究世界的神奇與自然界的美妙，並豐富彼此對這個美麗星球的了解。期待與您一起共創美好時光！</p>
+          </div>
+      </div>
+
+          <!-- START USER CHAT -->
+          <div class="row user-chat-box">
+            <div class="chat-icon">
+              <img class="chatgpt-icon" src="images/user-icon.png" />
+            </div>
+            <div class="chat-txt">你本週，到底喝了多少水阿？</div>
+          </div>
+
+          <!-- START GPT CHAT -->
+          <div class="row gpt-chat-box">
+            <div class="chat-icon">
+              <img class="chatgpt-icon" src="images/chatgpt-icon.png" />
+            </div>
+            <div class="chat-txt">
+              <p> 根據你的 <a href="https://docs.google.com/spreadsheets/d/1cNRwYKMqQRS7XJiEbnxYPxy_iN2VEsvZTGFFsJdCNHs/edit?usp=sharing">澆灌紀錄</a></p>
+              <p> 本週我滴灌了 1000 cc 的水，由於這週都是雨天，因此我想請妳幫忙調整程式碼中的 frequency 變數，每天只需滴灌 100 cc 的水量即可。</p>
+              <p> 我會根據環境變化和植物需求來調整滴灌的頻率，確保植物能夠得到適量的水分，保持健康成長。</p>
+            </div>
+          </div>
+
+          <!-- START USER CHAT -->
+          <div class="row user-chat-box">
+            <div class="chat-icon">
+              <img class="chatgpt-icon" src="images/user-icon.png" />
+            </div>
+            <div class="chat-txt">你可以把滴灌畫成折線圖嗎？</div>
+          </div>
+
+          <!-- START GPT CHAT -->
+          <div class="row gpt-chat-box">
+            <div class="chat-icon">
+              <img class="chatgpt-icon" src="images/chatgpt-icon.png" />
+            </div>
+            <div class="chat-txt">
+              <p>當然可以：</p>
+              <img src="images/line-graph.png">
+            </div>
+          </div>
+        </div>
+
+          <!-- START CHAT INPUTS -->
+        <div class="chat-input-area overflow-hidden">
+          <div class="row">
+            <div class="col-12 chat-inputs-area-inner">
+              <div class="row chat-inputs-container d-flex align-items-center">
+                <textarea name="" id="" class="col-11" placeholder="Send a message"></textarea>
+                <span class="col-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+
+  <!-- START FOOTER -->
+  <footer class="d-flex align-items-center justify-content-center position-relative bottom-0">
+    <div class="text-center">© 2023 Copyright 黃檸爸爸</div>
+  </footer>
+
+  <!-- START EXTERNAL JS RESOURCES -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/material-ui/5.0.0-beta.5/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/material-ui/5.0.0-beta.5/index.js"></script>
+
+
+</body>
+
+</html>

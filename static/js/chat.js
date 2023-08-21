@@ -1,4 +1,4 @@
-function add_ai_chat(list_content) {
+function add_ai_chat(str_content) {
 let str_ai_sample = `
     <div class="row gpt-chat-box">
             <div class="chat-icon">
@@ -23,7 +23,7 @@ let str_ai_sample = `
   let objAIicon = jQuery('<div>', {
     class: 'chat-icon',
   }).appendTo(objAIchatBox)
-  
+
   let objAItxt = jQuery('<div>', {
     class: 'chat-txt',
   }).appendTo(objAIchatBox)
@@ -34,23 +34,24 @@ let str_ai_sample = `
   }).appendTo(objAIicon)
 
   let objAIchatP = jQuery('<p>', {
-    text: 'HELLO'
+    text: str_content
   }).appendTo(objAItxt)
 
- 
-  // $('#chat_content_area').append(str_ai_chat)
-  $('#chat_content_area').append(objAIchatBox)
+  $('#chat_content_area').append(objAIicon)
+  $('#chat_content_area').append(objAItxt)
 }
 
-function add_human_chat(list_content) {
+function add_human_chat(str_content) {
   let str_human_sample = `
     <div class="row user-chat-box">
       <div class="chat-icon">
         <img class="chatgpt-icon" src="images/user-icon.png" />
       </div>
-      <div class="chat-txt"><p>你本週，到底喝了多少水阿？</p></div>
-      </div>
+      <div class="chat-txt"><p>CONTENT</p></div>
+    </div>
 `
+
+  // let str_human_chat_msg = str_human_sample.replaceAll("CONTENT", str_content)
   let objHumanchatBox = jQuery('<div>', {
     class: 'row user-chat-box',
   })
@@ -58,7 +59,7 @@ function add_human_chat(list_content) {
   let objHumanicon = jQuery('<div>', {
     class: 'chat-icon',
   }).appendTo(objHumanchatBox)
-  
+
   let objHumantxt = jQuery('<div>', {
     class: 'chat-txt',
   }).appendTo(objHumanchatBox)
@@ -69,10 +70,9 @@ function add_human_chat(list_content) {
   }).appendTo(objHumanicon)
 
   let objHumanchatP = jQuery('<p>', {
-    text: 'HiHi'
+    text: str_content
   }).appendTo(objHumantxt)
 
- 
-  // $('#chat_content_area').append(str_ai_chat)
-  $('#chat_content_area').append(objHumanchatBox)
+  $('#chat_content_area').append(objHumanicon)
+  $('#chat_content_area').append(objHumantxt)
 }
