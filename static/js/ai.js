@@ -1,12 +1,12 @@
 function chat_to_ai(message) {
-  // 顯示 loading 畫面
+  // 显示 loading 界面
   $("#loading-overlay").show();
-  
+
   if (getLocalStorage("avatar") === "") {
-    return
+    return;
   }
 
-  let obj_avatar = JSON.parse(getLocalStorage("avatar"))
+  let obj_avatar = JSON.parse(getLocalStorage("avatar"));
 
   var settings = {
     "url": "https://beta-openai.4impact.cc/chat_to_avatar",
@@ -16,22 +16,34 @@ function chat_to_ai(message) {
       "Content-Type": "application/json"
     },
     "data": JSON.stringify({
-      "api_key": "2ulidgoo",
+      "api_key": $('#password').val(),
       "name": obj_avatar.name,
       "message": message
     }),
-    // 在 request 開始前觸發
+    // 在请求开始前触发
     beforeSend: function() {
       $("#loading-overlay").show();
     }
   };
 
-  $.ajax(settings).done(function (response) {
-    console.log(response.message);
-    let obj_result = JSON.parse(response.message);
-    add_ai_chat(obj_result.content);
-  }).always(function() {
-    // 在 done 事件後關閉 loading 畫面
-    $("#loading-overlay").hide();
-  });
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response.message);
+      let obj_result = JSON.parse(response.message);
+      add_ai_chat(obj_result.content);
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      if (xhr.status === 403) {
+        // 处理 403 错误，显示自定义警告消息
+        alert("Permission denied: 您的 API 金鑰不正確！");
+      } else {
+        // 处理其他错误，显示通用警告消息
+        console.log("Ajax 請求失敗:", textStatus, errorThrown);
+        alert("網路錯誤，請檢查您的金鑰是否正確！");
+      }
+    })
+    .always(function() {
+      // 在 done 事件后关闭 loading 界面
+      $("#loading-overlay").hide();
+    });
 }

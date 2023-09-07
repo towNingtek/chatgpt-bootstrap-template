@@ -46,6 +46,12 @@ $(document).ready(function() {
 
   // 監聽提交按鈕的點擊事件
   $("#submitButton").on("click", function() {
+    let apiKey = $('#password').val()
+    if (apiKey == "") {
+      alert("請先填入 API key")
+      return
+    }
+
     // 在這裡處理提交的動作
     var message = $("#messageInput").val();
     // Dialog
