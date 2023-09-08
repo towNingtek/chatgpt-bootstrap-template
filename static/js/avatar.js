@@ -1,3 +1,33 @@
+function list_avatar() {
+  let apiKey = $('#password').val()
+
+  var settings = {
+    "url": "https://beta-openai.4impact.cc/list_avatar",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "data": JSON.stringify({
+      "api_key": apiKey
+    }),
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+
+    var newOption = $("<option></option>").attr("value", "model4").text("模型4");
+    // obj_avatar = JSON.parse(response);
+
+    $.each(response.avatar, function(index, value) {
+      console.log("Index: " + index + ", Value: " + value);
+      var newOption = $("<option></option>").attr("value", value).text(value);
+      $('#gpt-model').append(newOption);
+
+    });
+  });
+}
+
 function welcome() {
   if (getLocalStorage("avatar") === "") {
     return

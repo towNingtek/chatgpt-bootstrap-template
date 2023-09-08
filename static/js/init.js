@@ -32,6 +32,7 @@ function get_weather_from_opendata() {
 
 function init() {
   get_weather_from_opendata()
+  list_avatar()
 }
 
 $(document).ready(function() {
