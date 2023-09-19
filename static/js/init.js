@@ -3,11 +3,12 @@ function get_weather_from_opendata() {
     const URL_WEATHER_OPENDATA = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON"
     $.getJSON(URL_WEATHER_OPENDATA, function(data) {
       // Set weather fetch date
-      let objToday = new Date(data.cwbopendata.sent)
+      console.log(data.cwaopendata.sent);
+      let objToday = new Date(data.cwaopendata.sent)
       $("#today").text(objToday.getFullYear() + "/" + (objToday.getMonth()+1) + "/" + objToday.getDate())
 
       // Set weather
-      let list_location = data.cwbopendata.dataset.location
+      let list_location = data.cwaopendata.dataset.location
       list_location.forEach(function(obj) {
         if (obj.locationName == "南投縣") {
           $("#weather_0").text("早上: " + obj.weatherElement[0].time[0].parameter.parameterName +
