@@ -5,7 +5,7 @@ function get_weather_from_opendata() {
       let objToday = new Date();
       $("#today").text(objToday.getFullYear() + "/" + (objToday.getMonth() + 1) + "/" + objToday.getDate());
 
-      let list_location = data.result.records.location;  // 更正這行
+      let list_location = data.records.location;  // 更正這行
       list_location.forEach(function(obj) {
         if (obj.locationName == "南投縣") {
           $("#weather_0").text("早上: " + obj.weatherElement[0].time[0].parameter.parameterName +
