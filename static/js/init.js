@@ -1,6 +1,7 @@
 function get_weather_from_opendata() {
   try {
-    const URL_WEATHER_OPENDATA = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON"
+    // const URL_WEATHER_OPENDATA = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON"
+    const URL_WEATHER_OPENDATA = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON"
     $.getJSON(URL_WEATHER_OPENDATA, function(data) {
       // Set weather fetch date
       console.log(data.cwaopendata.sent);
