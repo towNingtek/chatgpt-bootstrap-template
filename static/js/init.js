@@ -27,3 +27,37 @@ function get_weather_from_opendata() {
     console.log(e);
   }
 }
+
+function init() {
+  get_weather_from_opendata()
+  list_avatar()
+}
+
+$(document).ready(function() {
+
+  // 監聽 textarea 的按下 Enter 鍵事件
+  $("#messageInput").on("keydown", function(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // 阻止預設的換行行為
+      $("#submitButton").click(); // 觸發提交按鈕的點擊事件
+    }
+  });
+
+  // 監聽提交按鈕的點擊事件
+  $("#submitButton").on("click", function() {
+    let apiKey = $('#password').val()
+    if (apiKey == "") {
+      alert("請先填入 API key")
+      return
+    }
+
+    // 在這裡處理提交的動作
+    var message = $("#messageInput").val();
+    // Dialog
+    add_human_chat(message);
+    // API
+    chat_to_ai(message);
+    // 清空輸入框
+    $("#messageInput").val("");
+  });
+});
