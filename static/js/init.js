@@ -5,7 +5,7 @@ function get_weather_from_opendata() {
       let objToday = new Date();
       $("#today").text(objToday.getFullYear() + "/" + (objToday.getMonth() + 1) + "/" + objToday.getDate());
 
-      let list_location = data.result.records.location;
+      let list_location = data.result.records.location;  // 更正這行
       list_location.forEach(function(obj) {
         if (obj.locationName == "南投縣") {
           $("#weather_0").text("早上: " + obj.weatherElement[0].time[0].parameter.parameterName +
@@ -27,30 +27,3 @@ function get_weather_from_opendata() {
     console.log(e);
   }
 }
-
-function init() {
-  get_weather_from_opendata();
-  list_avatar();
-}
-
-$(document).ready(function() {
-  $("#messageInput").on("keydown", function(event) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      $("#submitButton").click();
-    }
-  });
-
-  $("#submitButton").on("click", function() {
-    let apiKey = $('#password').val();
-    if (apiKey == "") {
-      alert("請先填入 API key");
-      return;
-    }
-
-    var message = $("#messageInput").val();
-    add_human_chat(message);
-    chat_to_ai(message);
-    $("#messageInput").val("");
-  });
-});
