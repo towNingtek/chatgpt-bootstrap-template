@@ -29,8 +29,8 @@ function chat_to_ai(message) {
   $.ajax(settings)
     .done(function (response) {
       console.log(response.message);
-      let obj_result = JSON.parse(response.message);
-      add_ai_chat(obj_result.content);
+      // let obj_result = JSON.parse(response);
+      add_ai_chat(response.message);
     })
     .fail(function (xhr, textStatus, errorThrown) {
       if (xhr.status === 403) {
